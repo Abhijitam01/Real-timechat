@@ -23,7 +23,7 @@ server.listen(8080, function() {
 
  const wsServer = new WebSocketServer({
     httpServer: server,
-    autoAcceptConnections: false
+    autoAcceptConnections: true
 });
 
 function originIsAllowed(origin: string) {
@@ -44,7 +44,7 @@ wsServer.on('request', function(request) {
     console.log((new Date()) + ' Connection accepted.');
     connection.on('message', function(message) {
 
-        // Todo add rate limitting logic here 
+        // Todo add rate limiting logic here 
         if (message.type === 'utf8') {
             try {
                 messageHandler(connection, JSON.parse(message.utf8Data));
